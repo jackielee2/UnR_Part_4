@@ -1,0 +1,130 @@
+==================================================================
+19. 로켓 연기 만들기
+	[ 참고 : 언리얼 엔진 4 블루프린트 게임 만들기. ]
+	-	위 책의 내용을 바탕으로 게임을 만들면서 언리얼을 익힙니다.
+==================================================================
+
+-----------------------------------
+0]	개요.
+-----------------------------------
+
+	-	로켓을 발사하면 뒤에서 분산되는 연기 이펙트를 만든다.
+
+
+
+-----------------------------------
+1]	새 파티클 만들기.
+-----------------------------------
+
+	1)	파티클 만들기.
+
+		-	[ Particles 폴더 ] > [ 마우스 우클릭 ] > [ 파티클 시스템 ] 선택.
+			-	[ 이름 ]		:	[ P_Rocket_Smoke ]
+		
+		-	[ 케스케이드 에디터 ] 열기
+			-	[ P_Rocket_Smoke ] 더블 클릭.
+
+
+
+
+	2)	[ 이미터 ] 이름 변경
+
+		-	[ Particle Emitter ( 기본적으로 생성되어 있음. ) ]  > [ 마우스 우클릭 ] >
+			[ 이미터 ] > [ 이미터 이름 변경 ]	:	[ Smoke ]
+
+
+
+
+	3)	[ 파티클 머터리얼 ] 설정.
+
+		-	파티클을 만들려면 파티클용 머터리얼이 필요.
+			-	빌트인 머터리얼 사용.
+
+		-	[ Required ] 선택 > 
+			[ 디테일 ] > [ 이미터 ] > [ Material ]	:	[ M_Dust_Particle ]
+
+		-	[ M_Dust_Particle ]는 [ SubUV ]로 만든 것이라 두 줄기 연기가 표시됨.
+
+
+
+
+	4)	[ SubUV ] 설정.
+
+		-	[ SubUV ]
+			-	조각 그림을 한장의 한 장의 이미지에 모아둔 것.
+			-	[ M_Dust_Particle ]는 [ 2 X 2 ] 이미지를 사용중.
+		
+		-	[ Required ] 선택 > 
+			[ 디테일 ] > [ 서브 UV ] > [ Interpolation Method ]		:	[ Linear Blend ]
+									> [ Sub Images Horizontal ]		:	[ 2 ]
+									> [ Sub Images Vertical ]		:	[ 2 ]
+			
+			-	[ 2 X 2 ] 이미지가 한장씩 순서대로 연출됨.
+
+
+
+
+	5)	[ 이미터 ]의 입자 수 설정.
+
+		-	[ Spawn ] 선택.
+			[ 디테일 ] > [ 스폰 ] > [ Rate ] > [ Distribution ]		:	[ Distribution Float Uniform ]
+											-	[ Min ] / [ Max ]	:	[ 50 / 100 ]
+
+
+
+	6)	입자의 수명 설정.
+
+		-	[ Lifetime ] 선택.
+			[ 디테일 ] > [ 수명 ] > [ Lifetime ] > [ Distribution ]	:	[ Distribution Float Uniform ]
+											-	[ Min ] / [ Max ]	:	[ 2 / 3 ]
+
+
+			
+	7)	입자의 크기 설정.
+
+		-	[ Initial Size ] 선택.
+			[ 디테일 ] > [ 크기 ] > [ Start Size ] > [ Distribution ]	:	[ Distribution Vector Uniform ]
+											-	[ Min ] / [ Max ]	:	[ 20, 20, 20 ] / [ 40, 40, 40 ]
+
+
+
+
+	8)	입자의 기본 이동 방향 설정.
+
+		-	[ Initial Velocity ] 선택.
+			[ 디테일 ] > [ 속도 ] > [ Start Velocity ] > [ Distribution ]	:	[ Distribution Vector Uniform ]
+											-	[ Min ] / [ Max ]	:	[ -10, -10, -10 ] / [ 10, 10, 10 ]
+
+		-	연기가 한자리에 동그랗게 뭉쳐짐.
+
+
+
+
+	9)	시간에 따른 입자의 색상 설정.
+
+		-	[ Color Over Life ] 선택.
+			[ 디테일 ] > [ 컬러 ] > [ Color Over Life ] > [ Distribution ]	:	[ Distribution Vector Uniform ]
+											-	[ Min ] / [ Max ]	:	[ 0, 0, 0 ] / [ 0.4, 0.4, 0.4 ]
+											-	[ Locked Axes ]		:	[ XYZ ]
+												-	해당축에 대하여 설정.
+
+
+
+	10)	시간에 따른 입자의 크기 설정.
+
+		-	[ Size By Life ] 추가.
+			[ Smoke ] 선택 > [ 마우스 우클릭 ] > [ Size ] > [ Size By Life ]
+
+		-	[ 디테일 ] > [ 크기 ] > [ Life Multiplier ] > [ Distribution ]	:	[ Distribution Vector Uniform ]
+											-	[ Min ] / [ Max ]	:	[ 1, 1, 1 ] / [ 5, 5, 5 ]
+
+
+
+											
+	11)	섬네일 이미지 만들기.
+
+		-	[ 툴바 ] > [ 섬네일 ]
+
+
+
+==================================================================//
